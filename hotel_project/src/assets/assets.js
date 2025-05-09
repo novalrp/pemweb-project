@@ -114,7 +114,7 @@ export const testimonials = [
         address: "Gunung Jati, Cirebon",
         image: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=200",
         rating: 5,
-        review: "Saya pernah mencoba banyak platform booking, tapi QuickStay sangat personal dan detail.",
+        review: "Saya pernah mencoba banyak platform booking, tapi InapQ sangat personal dan detail.",
     },
     {
         id: 2,
@@ -130,7 +130,7 @@ export const testimonials = [
         address: "Garut",
         image: "https://images.unsplash.com/photo-1701615004837-40d8573b6652?q=80&w=200",
         rating: 5,
-        review: "Layanan luar biasa! Selalu dapat akomodasi terbaik lewat QuickStay!",
+        review: "Layanan luar biasa! Selalu dapat akomodasi terbaik lewat InapQ!",
     },
 ];
 
@@ -183,7 +183,7 @@ export const userDummyData = {
 // Data hotel dummy
 export const hotelDummyData = {
     "_id": "67f76393197ac559e4089b72",
-    "name": "Nana",
+    "name": "InapQ",
     "address": "Jalan Utama No.123, Koloni 23",
     "contact": "+0123456789",
     "owner": userDummyData,
@@ -199,7 +199,7 @@ export const roomsDummyData = [
         "_id": "67f7647c197ac559e4089b96",
         "hotel": hotelDummyData,
         "roomType": "Ranjang Ganda",
-        "pricePerNight": 399,
+        "pricePerNight": "1.000.000",
         "amenities": ["Layanan Kamar", "Pemandangan Gunung", "Akses Kolam Renang"],
         "images": [roomImg1, roomImg2, roomImg3, roomImg4],
         "isAvailable": true,
@@ -208,7 +208,7 @@ export const roomsDummyData = [
         "_id": "67f76452197ac559e4089b8e",
         "hotel": hotelDummyData,
         "roomType": "Ranjang Ganda",
-        "pricePerNight": 299,
+        "pricePerNight": "1.500.000",
         "amenities": ["Layanan Kamar", "Pemandangan Gunung", "Akses Kolam Renang"],
         "images": [roomImg2, roomImg3, roomImg4, roomImg1],
         "isAvailable": true,
@@ -217,7 +217,7 @@ export const roomsDummyData = [
         "_id": "67f76406197ac559e4089b82",
         "hotel": hotelDummyData,
         "roomType": "Ranjang Ganda",
-        "pricePerNight": 249,
+        "pricePerNight": "500.000",
         "amenities": ["WiFi Gratis", "Sarapan Gratis", "Layanan Kamar"],
         "images": [roomImg3, roomImg4, roomImg1, roomImg2],
         "isAvailable": true,
@@ -226,7 +226,7 @@ export const roomsDummyData = [
         "_id": "67f763d8197ac559e4089b7a",
         "hotel": hotelDummyData,
         "roomType": "Ranjang Tunggal",
-        "pricePerNight": 199,
+        "pricePerNight": "200.000",
         "amenities": ["WiFi Gratis", "Layanan Kamar", "Akses Kolam Renang"],
         "images": [roomImg4, roomImg1, roomImg2, roomImg3],
         "isAvailable": true,
@@ -242,7 +242,7 @@ export const userBookingsDummyData = [
         "hotel": hotelDummyData,
         "checkInDate": "2025-04-30T00:00:00.000Z",
         "checkOutDate": "2025-05-01T00:00:00.000Z",
-        "totalPrice": 299,
+        "totalPrice": "2.500.000",
         "guests": 1,
         "status": "pending",
         "paymentMethod": "Stripe",
@@ -255,7 +255,7 @@ export const userBookingsDummyData = [
         "hotel": hotelDummyData,
         "checkInDate": "2025-04-27T00:00:00.000Z",
         "checkOutDate": "2025-04-28T00:00:00.000Z",
-        "totalPrice": 399,
+        "totalPrice": "6.000.000",
         "guests": 1,
         "status": "pending",
         "paymentMethod": "Bayar di Hotel",
@@ -268,7 +268,7 @@ export const userBookingsDummyData = [
         "hotel": hotelDummyData,
         "checkInDate": "2025-04-11T00:00:00.000Z",
         "checkOutDate": "2025-04-12T00:00:00.000Z",
-        "totalPrice": 199,
+        "totalPrice": "1.000.000",
         "guests": 1,
         "status": "pending",
         "paymentMethod": "Bayar di Hotel",
@@ -278,7 +278,42 @@ export const userBookingsDummyData = [
 
 // Data dashboard dummy
 export const dashboardDummyData = {
-    totalBookings: 3,
-    totalRevenue: 897,
+    totalBookings: 500,
+    totalRevenue: "897.000.000",
     bookings: userBookingsDummyData,
 };
+
+
+// assets/assets.js
+
+export const teamMembers = [
+  {
+    id: 1,
+    name: 'Noval Rizky Pratama',
+    role: 'Pengusaha Sukses - Pemilik & Pengelola',
+    image: assets.guestsIcon, // Ganti dengan URL foto Noval
+    description: 'Noval adalah pengusaha sukses yang memiliki visi besar dalam dunia perhotelan, bertujuan memberikan pengalaman terbaik bagi setiap tamu.'
+  },
+  {
+    id: 2,
+    name: 'Herdiansyah Subakti',
+    role: 'Pengusaha Sukses - Manajer Operasional',
+    image: 'https://via.placeholder.com/150', // Ganti dengan URL foto Herdiansyah
+    description: 'Herdiansyah berhasil mengembangkan dan mengelola operasional hotel dengan efisien, memastikan kualitas layanan yang konsisten tinggi.'
+  },
+  {
+    id: 3,
+    name: 'Mimif Miftahuddin',
+    role: 'Pengusaha Sukses - Manajer Pemasaran',
+    image: 'https://via.placeholder.com/150', // Ganti dengan URL foto Mimif
+    description: 'Mimif telah membawa HotelQ ke tingkat yang lebih tinggi dalam hal pemasaran, menjadikan brand ini dikenal luas oleh pasar.'
+  },
+  {
+    id: 4,
+    name: 'Galih Akbar',
+    role: 'Pengusaha Sukses - Manajer Layanan Pelanggan',
+    image: 'https://via.placeholder.com/150', // Ganti dengan URL foto Galih
+    description: 'Galih berfokus pada pemberian layanan pelanggan yang luar biasa, yang menjadikan tamu merasa istimewa dan selalu ingin kembali.'
+  }
+];
+
