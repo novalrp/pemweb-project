@@ -1,33 +1,34 @@
-import logo from './logo.svg'
-import searchIcon from './searchIcon.svg'
-import userIcon from './userIcon.svg'
-import calenderIcon from './calenderIcon.svg'
-import locationIcon from './locationIcon.svg'
-import starIconFilled from './starIconFilled.svg'
-import arrowIcon from './arrowIcon.svg'
-import starIconOutlined from './starIconOutlined.svg'
-import instagramIcon from './instagramIcon.svg'
-import facebookIcon from './facebookIcon.svg'
-import twitterIcon from './twitterIcon.svg'
-import linkendinIcon from './linkendinIcon.svg'
-import freeWifiIcon from './freeWifiIcon.svg'
-import freeBreakfastIcon from './freeBreakfastIcon.svg'
-import roomServiceIcon from './roomServiceIcon.svg'
-import mountainIcon from './mountainIcon.svg'
-import poolIcon from './poolIcon.svg'
-import homeIcon from './homeIcon.svg'
-import closeIcon from './closeIcon.svg'
-import locationFilledIcon from './locationFilledIcon.svg'
-import heartIcon from './heartIcon.svg'
-import badgeIcon from './badgeIcon.svg'
-import menuIcon from './menuIcon.svg'
-import closeMenu from './closeMenu.svg'
-import guestsIcon from './guestsIcon.svg'
-import roomImg1 from './roomImg1.png'
-import roomImg2 from './roomImg2.png'
-import roomImg3 from './roomImg3.png'
-import roomImg4 from './roomImg4.png'
-import regImage from './regImage.png'
+// Impor aset-aset gambar & ikon
+import logo from './logo.png';
+import searchIcon from './searchIcon.svg';
+import userIcon from './userIcon.svg';
+import calenderIcon from './calenderIcon.svg';
+import locationIcon from './locationIcon.svg';
+import starIconFilled from './starIconFilled.svg';
+import arrowIcon from './arrowIcon.svg';
+import starIconOutlined from './starIconOutlined.svg';
+import instagramIcon from './instagramIcon.svg';
+import facebookIcon from './facebookIcon.svg';
+import twitterIcon from './twitterIcon.svg';
+import linkendinIcon from './linkendinIcon.svg';
+import freeWifiIcon from './freeWifiIcon.svg';
+import freeBreakfastIcon from './freeBreakfastIcon.svg';
+import roomServiceIcon from './roomServiceIcon.svg';
+import mountainIcon from './mountainIcon.svg';
+import poolIcon from './poolIcon.svg';
+import homeIcon from './homeIcon.svg';
+import closeIcon from './closeIcon.svg';
+import locationFilledIcon from './locationFilledIcon.svg';
+import heartIcon from './heartIcon.svg';
+import badgeIcon from './badgeIcon.svg';
+import menuIcon from './menuIcon.svg';
+import closeMenu from './closeMenu.svg';
+import guestsIcon from './guestsIcon.svg';
+import roomImg1 from './roomImg1.png';
+import roomImg2 from './roomImg2.png';
+import roomImg3 from './roomImg3.png';
+import roomImg4 from './roomImg4.png';
+import regImage from './regImage.png';
 import exclusiveOfferCardImg1 from "./exclusiveOfferCardImg1.png";
 import exclusiveOfferCardImg2 from "./exclusiveOfferCardImg2.png";
 import exclusiveOfferCardImg3 from "./exclusiveOfferCardImg3.png";
@@ -38,7 +39,7 @@ import uploadArea from "./uploadArea.svg";
 import totalBookingIcon from "./totalBookingIcon.svg";
 import totalRevenueIcon from "./totalRevenueIcon.svg";
 
-
+// Objek aset
 export const assets = {
     logo,
     searchIcon,
@@ -72,130 +73,167 @@ export const assets = {
     uploadArea,
     totalBookingIcon,
     totalRevenueIcon,
-}
+};
 
-export const Kota = [
-    "Cirebon",
-    "Bandung",
-    "Jakarta",
-    "Yogyakarta",
-];
+// Daftar kota pilihan
+export const cities = ["Cirebon", "Majalengka", "Kuningan", "Indramayu"];
 
-// Exclusive Offers Dummy Data
+// Penawaran Eksklusif (data dummy)
 export const exclusiveOffers = [
-    { _id: 1, title: "Paket Liburan Musim Panas", description: "Nikmati 1 malam gratis dan sarapan setiap hari", priceOff: 25, expiryDate: "31 Agustus", image: exclusiveOfferCardImg1 },
-    { _id: 2, title: "Paket Romantis", description: "Paket khusus pasangan termasuk perawatan spa", priceOff: 20, expiryDate: "20 September", image: exclusiveOfferCardImg2 },
-    { _id: 3, title: "Retret Mewah", description: "Pesan 60 hari lebih awal dan hemat untuk penginapan mewah kami di seluruh dunia.", priceOff: 30, expiryDate: "25 September", image: exclusiveOfferCardImg3 },
+    {
+        _id: 1,
+        title: "Paket Liburan Musim Panas",
+        description: "Nikmati satu malam gratis dan sarapan harian",
+        priceOff: 25,
+        expiryDate: "31 Agustus",
+        image: exclusiveOfferCardImg1,
+    },
+    {
+        _id: 2,
+        title: "Liburan Romantis",
+        description: "Paket spesial pasangan termasuk perawatan spa",
+        priceOff: 20,
+        expiryDate: "20 September",
+        image: exclusiveOfferCardImg2,
+    },
+    {
+        _id: 3,
+        title: "Retret Mewah",
+        description: "Pesan 60 hari sebelumnya dan hemat di properti mewah kami",
+        priceOff: 30,
+        expiryDate: "25 September",
+        image: exclusiveOfferCardImg3,
+    },
 ];
 
-// Testimonials Dummy Data
+// Testimoni pengguna (data dummy)
 export const testimonials = [
-    { id: 1, name: "Zilong", address: "Pemuda", image: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=200", rating: 5, review: "Saya telah menggunakan banyak platform booking, tapi tidak ada yang sepersonal dan detail seperti QuickStay." },
-    { id: 2, name: "Johnson", address: "Gunung Jati", image: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200", rating: 4, review: "QuickStay melampaui ekspektasi saya. Proses booking sangat mudah, dan hotelnya luar biasa. Sangat direkomendasikan!" },
-    { id: 3, name: "Angela", address: "Kuningan", image: "https://images.unsplash.com/photo-1701615004837-40d8573b6652?q=80&w=200", rating: 5, review: "Pelayanan luar biasa! Saya selalu menemukan penginapan terbaik lewat QuickStay. Rekomendasinya tidak pernah mengecewakan!" }
+    {
+        id: 1,
+        name: "Herdi",
+        address: "Gunung Jati, Cirebon",
+        image: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=200",
+        rating: 5,
+        review: "Saya pernah mencoba banyak platform booking, tapi InapQ sangat personal dan detail.",
+    },
+    {
+        id: 2,
+        name: "Alok",
+        address: "Cirendang, Kuningan",
+        image: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200",
+        rating: 4,
+        review: "InapQ luar biasa! Proses booking sangat mudah dan hotelnya mewah!",
+    },
+    {
+        id: 3,
+        name: "Kelly",
+        address: "Garut",
+        image: "https://images.unsplash.com/photo-1701615004837-40d8573b6652?q=80&w=200",
+        rating: 5,
+        review: "Layanan luar biasa! Selalu dapat akomodasi terbaik lewat InapQ!",
+    },
 ];
 
-// Facility Icon
+// Ikon fasilitas
 export const facilityIcons = {
     "WiFi Gratis": assets.freeWifiIcon,
     "Sarapan Gratis": assets.freeBreakfastIcon,
     "Layanan Kamar": assets.roomServiceIcon,
     "Pemandangan Gunung": assets.mountainIcon,
-    "Akses Kolam": assets.poolIcon,
+    "Akses Kolam Renang": assets.poolIcon,
 };
 
-// For Room Details Page
+// Data umum kamar (untuk detail kamar)
 export const roomCommonData = [
-    { icon: assets.homeIcon, title: "Menginap Bersih & Aman", description: "Ruangan terawat dan higienis khusus untuk Anda." },
-    { icon: assets.badgeIcon, title: "Kebersihan Ekstra", description: "Tuan rumah mengikuti standar kebersihan ketat Staybnb." },
-    { icon: assets.locationFilledIcon, title: "Lokasi Strategis", description: "90% tamu memberi rating 5 bintang untuk lokasi." },
-    { icon: assets.heartIcon, title: "Check-In Mudah", description: "100% tamu memberi rating check-in 5 bintang." },
+    {
+        icon: assets.homeIcon,
+        title: "Tinggal Bersih & Aman",
+        description: "Ruang yang terawat dan higienis khusus untuk Anda.",
+    },
+    {
+        icon: assets.badgeIcon,
+        title: "Pembersihan Ekstra",
+        description: "Host mengikuti standar kebersihan ketat dari Staybnb.",
+    },
+    {
+        icon: assets.locationFilledIcon,
+        title: "Lokasi Strategis",
+        description: "90% tamu memberikan bintang 5 untuk lokasi.",
+    },
+    {
+        icon: assets.heartIcon,
+        title: "Check-In Lancar",
+        description: "100% tamu memberikan rating 5 untuk check-in.",
+    },
 ];
 
-
-// User Dummy Data
+// Data pengguna dummy
 export const userDummyData = {
     "_id": "user_2unqyL4diJFP1E3pIBnasc7w8hP",
-    "username": "Noval",
-    "email": "user.greatstack@gmail.com",
+    "username": "Zilong",
+    "email": "zilong123@gmail.com",
     "image": "https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvdXBsb2FkZWQvaW1nXzJ2N2c5YVpSSEFVYVUxbmVYZ2JkSVVuWnFzWSJ9",
-    "role": "hotelOwner",
+    "role": "pemilikHotel",
     "createdAt": "2025-03-25T09:29:16.367Z",
     "updatedAt": "2025-04-10T06:34:48.719Z",
     "__v": 1,
-    "recentSearchedCities": [
-        "Cirebon"
-    ]
-}
+    "recentSearchedCities": ["Cirebon"]
+};
 
-// Hotel Dummy Data
+// Data hotel dummy
 export const hotelDummyData = {
     "_id": "67f76393197ac559e4089b72",
-    "name": "Urbanza Suites",
-    "address": "Main Road  123 Street , 23 Colony",
+    "name": "InapQ",
+    "address": "Jalan Utama No.123, Koloni 23",
     "contact": "+0123456789",
     "owner": userDummyData,
-    "city": "New York",
+    "city": "Jakarta",
     "createdAt": "2025-04-10T06:22:11.663Z",
     "updatedAt": "2025-04-10T06:22:11.663Z",
     "__v": 0
-}
+};
 
-// Rooms Dummy Data
+// Data kamar dummy
 export const roomsDummyData = [
     {
         "_id": "67f7647c197ac559e4089b96",
         "hotel": hotelDummyData,
-        "roomType": "Double Bed",
-        "pricePerNight": 399,
-        "amenities": ["Room Service", "Mountain View", "Pool Access"],
+        "roomType": "Ranjang Ganda",
+        "pricePerNight": "1.000.000",
+        "amenities": ["Layanan Kamar", "Pemandangan Gunung", "Akses Kolam Renang"],
         "images": [roomImg1, roomImg2, roomImg3, roomImg4],
         "isAvailable": true,
-        "createdAt": "2025-04-10T06:26:04.013Z",
-        "updatedAt": "2025-04-10T06:26:04.013Z",
-        "__v": 0
     },
     {
         "_id": "67f76452197ac559e4089b8e",
         "hotel": hotelDummyData,
-        "roomType": "Double Bed",
-        "pricePerNight": 299,
-        "amenities": ["Room Service", "Mountain View", "Pool Access"],
+        "roomType": "Ranjang Ganda",
+        "pricePerNight": "1.500.000",
+        "amenities": ["Layanan Kamar", "Pemandangan Gunung", "Akses Kolam Renang"],
         "images": [roomImg2, roomImg3, roomImg4, roomImg1],
         "isAvailable": true,
-        "createdAt": "2025-04-10T06:25:22.593Z",
-        "updatedAt": "2025-04-10T06:25:22.593Z",
-        "__v": 0
     },
     {
         "_id": "67f76406197ac559e4089b82",
         "hotel": hotelDummyData,
-        "roomType": "Double Bed",
-        "pricePerNight": 249,
-        "amenities": ["Free WiFi", "Free Breakfast", "Room Service"],
+        "roomType": "Ranjang Ganda",
+        "pricePerNight": "500.000",
+        "amenities": ["WiFi Gratis", "Sarapan Gratis", "Layanan Kamar"],
         "images": [roomImg3, roomImg4, roomImg1, roomImg2],
         "isAvailable": true,
-        "createdAt": "2025-04-10T06:24:06.285Z",
-        "updatedAt": "2025-04-10T06:24:06.285Z",
-        "__v": 0
     },
     {
         "_id": "67f763d8197ac559e4089b7a",
         "hotel": hotelDummyData,
-        "roomType": "Single Bed",
-        "pricePerNight": 199,
-        "amenities": ["Free WiFi", "Room Service", "Pool Access"],
+        "roomType": "Ranjang Tunggal",
+        "pricePerNight": "200.000",
+        "amenities": ["WiFi Gratis", "Layanan Kamar", "Akses Kolam Renang"],
         "images": [roomImg4, roomImg1, roomImg2, roomImg3],
         "isAvailable": true,
-        "createdAt": "2025-04-10T06:23:20.252Z",
-        "updatedAt": "2025-04-10T06:23:20.252Z",
-        "__v": 0
-    }
-]
+    },
+];
 
-
-
-// User Bookings Dummy Data
+// Data pemesanan user
 export const userBookingsDummyData = [
     {
         "_id": "67f76839994a731e97d3b8ce",
@@ -209,9 +247,6 @@ export const userBookingsDummyData = [
         "status": "pending",
         "paymentMethod": "Stripe",
         "isPaid": true,
-        "createdAt": "2025-04-10T06:42:01.529Z",
-        "updatedAt": "2025-04-10T06:43:54.520Z",
-        "__v": 0
     },
     {
         "_id": "67f76829994a731e97d3b8c3",
@@ -223,11 +258,8 @@ export const userBookingsDummyData = [
         "totalPrice": 399,
         "guests": 1,
         "status": "pending",
-        "paymentMethod": "Pay At Hotel",
+        "paymentMethod": "Bayar di Hotel",
         "isPaid": false,
-        "createdAt": "2025-04-10T06:41:45.873Z",
-        "updatedAt": "2025-04-10T06:41:45.873Z",
-        "__v": 0
     },
     {
         "_id": "67f76810994a731e97d3b8b4",
@@ -239,27 +271,14 @@ export const userBookingsDummyData = [
         "totalPrice": 199,
         "guests": 1,
         "status": "pending",
-        "paymentMethod": "Pay At Hotel",
+        "paymentMethod": "Bayar di Hotel",
         "isPaid": false,
-        "createdAt": "2025-04-10T06:41:20.501Z",
-        "updatedAt": "2025-04-10T06:41:20.501Z",
-        "__v": 0
     }
-]
+];
 
-// Dashboard Dummy Data
+// Data dashboard dummy
 export const dashboardDummyData = {
-    "totalBookings": 3,
-    "totalRevenue": 897,
-    "bookings": userBookingsDummyData
-}
-
-// --------- SVG code for Book Icon------
-/* 
-const BookIcon = ()=>(
-    svg className="w-4 h-4 text-gray-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" >
-    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 19V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v13H7a2 2 0 0 0-2 2Zm0 0a2 2 0 0 0 2 2h12M9 3v14m7 0v4" />
-</svg><
-)
-
-*/
+    totalBookings: 3,
+    totalRevenue: 897,
+    bookings: userBookingsDummyData,
+};
