@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
@@ -34,3 +35,5 @@ if ($stmt->execute()) {
 
 $stmt->close();
 $conn->close();
+=======
+>>>>>>> main
