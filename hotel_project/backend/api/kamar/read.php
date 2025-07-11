@@ -4,13 +4,12 @@ header('Content-Type: application/json');
 
 include_once('../../../config/db.php');
 
-$result = $conn->query("SELECT * FROM pemesanan");
+$result = $conn->query("SELECT * FROM kamar");
 
-$data = [];
+$kamar = [];
 while ($row = $result->fetch_assoc()) {
-  $data[] = $row;
+  $kamar[] = $row;
 }
 
-echo json_encode($data);
-
-$conn->close();
+echo json_encode($kamar);
+?>

@@ -4,7 +4,7 @@ header('Content-Type: application/json');
 
 include_once('../../../config/db.php');
 
-$result = $conn->query("SELECT * FROM pemesanan");
+$result = $conn->query("SELECT id, username, email, role FROM pengguna");
 
 $data = [];
 while ($row = $result->fetch_assoc()) {

@@ -6,10 +6,8 @@ header('Access-Control-Allow-Headers: Content-Type');
 
 include_once('../../../config/db.php');
 
-// Ambil input JSON
 $data = json_decode(file_get_contents("php://input"), true);
 
-// Validasi dasar
 if (
   !isset($data['id']) ||
   !isset($data['nama_pemesan']) ||
@@ -24,35 +22,15 @@ if (
   exit;
 }
 
-// Siapkan query UPDATE
-$stmt = $conn->prepare("UPDATE pemesanan SET 
-  nama_pemesan = ?, 
-  id_kamar = ?, 
-  tanggal_checkin = ?, 
-  tanggal_checkout = ?, 
-  jumlah_tamu = ?, 
-  total_harga = ?
-  WHERE id = ?");
-
-$stmt->bind_param(
-  "sissiii",
-  $data['nama_pemesan'],
-  $data['id_kamar'],
-  $data['tanggal_checkin'],
-  $data['tanggal_checkout'],
-  $data['jumlah_tamu'],
-  $data['total_harga'],
-  $data['id']
-);
+$stmt = $conn->prepare("UPDATE pemesanan SET nama_pemesan=?, id_kamar=?, tanggal_checkin=?, tanggal_checkout=?, jumlah_tamu=?, total_harga=? WHERE id=?");
+$stmt->bind_param("sissiii", $data['nama_pemesan'], $data['id_kamar'], $data['tanggal_checkin'], $data['tanggal_checkout'], $data['jumlah_tamu'], $data['total_harga'], $data['id']);
 
 if ($stmt->execute()) {
-  http_response_code(200);
-  echo json_encode(["message" => "Data pemesanan berhasil diperbarui."]);
+  echo json_encode(["message" => "Pemesanan berhasil diperbarui."]);
 } else {
   http_response_code(500);
-  echo json_encode(["message" => "Gagal memperbarui data."]);
+  echo json_encode(["message" => "Gagal memperbarui pemesanan.", "error" => $stmt->error]);
 }
 
 $stmt->close();
 $conn->close();
-?>
