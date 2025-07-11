@@ -1,28 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";
-import { useClerk, useUser, UserButton } from "@clerk/clerk-react";
-import { useState, useEffect } from "react";
-
-const BookIcon = () => (
-  <svg
-    className="w-4 h-4 text-gray-700"
-    aria-hidden="true"
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    fill="none"
-    viewBox="0 0 24 24"
-  >
-    <path
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="2"
-      d="M5 19V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v13H7a2 2 0 0 0-2 2Zm0 0a2 2 0 0 0 2 2h12M9 3v14m7 0v4"
-    />
-  </svg>
-);
 
 const Navbar = () => {
   const navLinks = [
@@ -34,160 +12,123 @@ const Navbar = () => {
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const [form, setForm] = useState({ email: "", password: "" });
+  const [showLogin, setShowLogin] = useState(false);
 
-  const { openSignIn } = useClerk();
-  const { user } = useUser();
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname !== "/") {
-      setIsScrolled(true);
-      return;
-    } else {
-      setIsScrolled(false);
-    }
-    setIsScrolled(location.pathname !== "/");
+    if (location.pathname !== "/") setIsScrolled(true);
+    else setIsScrolled(false);
 
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [location.pathname]);
 
+  useEffect(() => {
+    const savedUser = localStorage.getItem("user");
+    if (savedUser) setUser(JSON.parse(savedUser));
+  }, []);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch("http://localhost/backend/api/pengguna/login.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const result = await res.json();
+
+      if (res.ok && result.user) {
+        setUser(result.user);
+        localStorage.setItem("user", JSON.stringify(result.user));
+        setShowLogin(false);
+        setForm({ email: "", password: "" });
+      } else {
+        alert(result.message || "Login gagal");
+      }
+    } catch (error) {
+      alert("Gagal terhubung ke server");
+    }
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    localStorage.removeItem("user");
+  };
+
   return (
-    <nav
-      className={`fixed top-0 left-0 w-full flex items-center justify-between px-4 md:px-16 lg:px-24 xl:px-32 transition-all duration-500 z-50 ${
-        isScrolled
-          ? "bg-white/80 shadow-md text-gray-700 backdrop-blur-lg py-3 md:py-4"
-          : "py-4 md:py-6"
-      }`}
-    >
+    <nav className={`fixed top-0 left-0 w-full flex items-center justify-between px-4 md:px-16 z-50 transition-all duration-500 ${isScrolled ? "bg-white/80 shadow-md text-gray-700 backdrop-blur-lg py-3 md:py-4" : "py-4 md:py-6"}`}>
       {/* Logo */}
       <Link to="/">
-        <img
-          src={assets.logo}
-          alt="logo"
-          className={`h-9 ${isScrolled && "invert opacity-80"}`}
-        />
+        <img src={assets.logo} alt="logo" className={`h-9 ${isScrolled && "invert opacity-80"}`} />
       </Link>
 
       {/* Navigasi Desktop */}
       <div className="hidden md:flex items-center gap-4 lg:gap-8">
         {navLinks.map((link, i) => (
-          <a
-            key={i}
-            href={link.path}
-            className={`group flex flex-col gap-0.5 ${
-              isScrolled ? "text-gray-700" : "text-white"
-            }`}
-          >
+          <Link key={i} to={link.path} className={`group flex flex-col gap-0.5 ${isScrolled ? "text-gray-700" : "text-white"}`}>
             {link.name}
-            <div
-              className={`${
-                isScrolled ? "bg-gray-700" : "bg-white"
-              } h-0.5 w-0 group-hover:w-full transition-all duration-300`}
-            />
-          </a>
+            <div className={`${isScrolled ? "bg-gray-700" : "bg-white"} h-0.5 w-0 group-hover:w-full transition-all duration-300`} />
+          </Link>
         ))}
-        <button
-          className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${
-            isScrolled ? "text-black" : "text-white"
-          } transition-all`}
-          onClick={() => navigate("/owner")}
-        >
+        {user?.role === "admin" && (
+        <button onClick={() => navigate("/owner")} className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${isScrolled ? "text-black" : "text-white"}`}>
           Dasbor
         </button>
+        )}
       </div>
 
-      {/* Navigasi Kanan Desktop */}
+      {/* Navigasi Kanan */}
       <div className="hidden md:flex items-center gap-4">
-        <img
-          src={assets.searchIcon}
-          alt="cari"
-          className={`${
-            isScrolled && "invert"
-          } h-7 transition-all duration-500`}
-        />
+        <img src={assets.searchIcon} alt="cari" className={`${isScrolled && "invert"} h-7`} />
         {user ? (
-          <UserButton>
-            <UserButton.MenuItems>
-              <UserButton.Action
-                label="Pesanan Saya"
-                labelIcon={<BookIcon />}
-                onClick={() => navigate("my-bookings")}
-              />
-            </UserButton.MenuItems>
-          </UserButton>
+          <>
+            <span className="text-sm text-black font-medium">{user.username}</span>
+            <button onClick={handleLogout} className="bg-red-500 text-white px-3 py-1 rounded-md">| Keluar</button>
+          </>
         ) : (
-          <button
-            onClick={openSignIn}
-            className="bg-black text-white px-8 py-2.5 rounded-full ml-4 transition-all duration-500"
-          >
+          <button onClick={() => setShowLogin(true)} className="bg-black text-white px-8 py-2.5 rounded-full ml-4">
             Masuk
           </button>
         )}
       </div>
 
-      {/* Tombol Menu Mobile */}
-      <div className="flex items-center gap-3 md:hidden">
-        {user && (
-          <UserButton>
-            <UserButton.MenuItems>
-              <UserButton.Action
-                label="Pesanan Saya"
-                labelIcon={<BookIcon />}
-                onClick={() => navigate("my-bookings")}
+      {/* LOGIN POPUP */}
+      {showLogin && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-md shadow-md w-80">
+            <h2 className="text-xl font-semibold mb-4">Login</h2>
+            <form onSubmit={handleLogin} className="space-y-3">
+              <input
+                type="email"
+                placeholder="Email"
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                className="w-full px-3 py-2 border rounded"
+                required
               />
-            </UserButton.MenuItems>
-          </UserButton>
-        )}
-        <img
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          src={assets.menuIcon}
-          alt="menu"
-          className={`${isScrolled && "invert"} h-4`}
-        />
-      </div>
-
-      {/* Menu Mobile */}
-      <div
-        className={`fixed top-0 left-0 w-full h-screen bg-white text-base flex flex-col md:hidden items-center justify-center gap-6 font-medium text-gray-800 transition-all duration-500 ${
-          isMenuOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
-      >
-        <button
-          className="absolute top-4 right-4"
-          onClick={() => setIsMenuOpen(false)}
-        >
-          <img src={assets.closeIcon} alt="tutup-menu" className="h-6.5" />
-        </button>
-
-        {navLinks.map((link, i) => (
-          <a key={i} href={link.path} onClick={() => setIsMenuOpen(false)}>
-            {link.name}
-          </a>
-        ))}
-
-        {user && (
-          <button
-            className="border px-4 py-1 text-sm font-light rounded-full cursor-pointer transition-all"
-            onClick={() => navigate("/owner")}
-          >
-            Dasbor
-          </button>
-        )}
-
-        {!user && (
-          <button
-            onClick={openSignIn}
-            className="bg-black text-white px-8 py-2.5 rounded-full transition-all duration-500"
-          >
-            Masuk
-          </button>
-        )}
-      </div>
+              <input
+                type="password"
+                placeholder="Password"
+                value={form.password}
+                onChange={(e) => setForm({ ...form, password: e.target.value })}
+                className="w-full px-3 py-2 border rounded"
+                required
+              />
+              <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded">Masuk</button>
+            </form>
+            <button onClick={() => setShowLogin(false)} className="mt-4 text-sm text-gray-500 hover:underline">
+              Batal
+            </button>
+          </div>
+        </div>
+      )}
     </nav>
   );
 };
