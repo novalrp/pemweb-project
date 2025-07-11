@@ -1,55 +1,195 @@
-import React, { useState } from 'react';
-import { roomsDummyData } from '../../assets/assets';
+import React, { useEffect, useState } from 'react';
 import Title from '../../components/Title';
 
 const ListRoom = () => {
-  const [rooms, setRooms] = useState(roomsDummyData);
+  const [rooms, setRooms] = useState([]);
+  const [editingRoom, setEditingRoom] = useState(null);
+  const [formData, setFormData] = useState({
+    nama_kamar: '',
+    tipe_kamar: '',
+    harga_per_malam: '',
+    deskripsi: '',
+    fasilitas: '',
+    foto: null,
+  });
+
+  const fetchRooms = async () => {
+    try {
+      const res = await fetch('http://localhost/backend/api/kamar/read.php');
+      const data = await res.json();
+      setRooms(data);
+    } catch (error) {
+      console.error('Gagal mengambil data:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchRooms();
+  }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      const res = await fetch(`http://localhost/backend/api/kamar/delete.php?id=${id}`, {
+        method: 'DELETE',
+      });
+      if (res.ok) {
+        fetchRooms();
+      }
+    } catch (error) {
+      console.error('Gagal menghapus:', error);
+    }
+  };
+
+  const handleEdit = (room) => {
+    setEditingRoom(room.id);
+    setFormData({
+      nama_kamar: room.nama_kamar,
+      tipe_kamar: room.tipe_kamar,
+      harga_per_malam: room.harga_per_malam,
+      deskripsi: room.deskripsi,
+      fasilitas: room.fasilitas,
+      foto: null,
+    });
+  };
+
+  const handleUpdate = async () => {
+    const data = new FormData();
+    data.append('id', editingRoom);
+    data.append('nama_kamar', formData.nama_kamar);
+    data.append('tipe_kamar', formData.tipe_kamar);
+    data.append('harga_per_malam', formData.harga_per_malam);
+    data.append('deskripsi', formData.deskripsi);
+    data.append('fasilitas', formData.fasilitas);
+    if (formData.foto) data.append('foto', formData.foto);
+
+    try {
+      const res = await fetch('http://localhost/backend/api/kamar/update.php', {
+        method: 'POST',
+        body: data,
+      });
+      const result = await res.json();
+      alert(result.message || 'Update berhasil');
+      setEditingRoom(null);
+      fetchRooms();
+    } catch (error) {
+      alert('Gagal update');
+    }
+  };
 
   return (
- <div>
-  <Title
-    align='left'
-    font='outfit'
-    title='Daftar Kamar'
-    subTitle='Lihat, ubah, atau kelola semua kamar yang terdaftar. Pastikan informasi selalu diperbarui untuk memberikan pengalaman terbaik bagi pengguna.'
-  />
-
-      <p className='text-gray-500 mt-8'>Semua Kamar</p>
-
-      <div className='w-full max-w-3xl text-left border border-gray-300 rounded-lg max-h-80 overflow-y-scroll mt-3'>
-        <table className='w-full'>
-          <thead className='bg-gray-50'>
+    <div className="px-6 pb-32">
+      <Title
+        align="left"
+        font="outfit"
+        title="Daftar Kamar"
+        subTitle="Lihat, ubah, atau kelola semua kamar yang terdaftar. Pastikan informasi selalu diperbarui untuk memberikan pengalaman terbaik bagi pengguna."
+      />
+      <div className="overflow-x-auto mt-10">
+        <table className="w-full border text-sm text-left">
+          <thead className="bg-gray-100 text-gray-700">
             <tr>
-              <th className='py-3 px-4 text-gray-800 font-medium'>Nama</th>
-              <th className='py-3 px-4 text-gray-800 font-medium max-sm:hidden'>Fasilitas</th>
-              <th className='py-3 px-4 text-gray-800 font-medium text-center'>Harga / Malam</th>
-              <th className='py-3 px-4 text-gray-800 font-medium text-center'>Actions</th>
+              <th className="px-4 py-2">Foto</th>
+              <th className="px-4 py-2">Nama Kamar</th>
+              <th className="px-4 py-2">Tipe</th>
+              <th className="px-4 py-2">Harga</th>
+              <th className="px-4 py-2">Fasilitas</th>
+              <th className="px-4 py-2">Deskripsi</th>
+              <th className="px-4 py-2 text-center">Aksi</th>
             </tr>
           </thead>
-          <tbody className='text-sm'>
-            {rooms.map((item, index) => (
-              <tr key={index}>
-                <td className='py-3 px-4 text-gray-700 border-t border-gray-300'>{item.roomType}</td>
-                <td className='py-3 px-4 text-gray-700 border-t border-gray-300 max-sm:hidden'>
-                  {item.amenities.join(', ')}
-                </td>
-                <td className='py-3 px-4 text-gray-700 border-t border-gray-300 text-center'>
-                  {item.pricePerNight}
-                </td>
-                <td className='py-3 px-4 border-t border-gray-300 text-sm text-red-500 text-center'>
-                  <label className='relative inline-flex items-center cursor-pointer text-gray-900 gap-3'>
+          <tbody>
+            {rooms.map((room) =>
+              editingRoom === room.id ? (
+                <tr key={room.id} className="bg-white">
+                  <td className="p-2">
                     <input
-                      type="checkbox"
-                      className='sr-only peer'
-                      checked={item.isAvailable}
-                      readOnly // Hindari warning karena tidak ada onChange
+                      type="file"
+                      onChange={(e) => setFormData({ ...formData, foto: e.target.files[0] })}
                     />
-                    <div className='w-12 h-7 bg-slate-300 rounded-full peer peer-checked:bg-blue-600 transition-colors duration-200'></div>
-                    <span className="dot absolute left-1 top-1 w-5 h-5 bg-white rounded-full transition-transform duration-200 ease-in-out peer-checked:translate-x-5"></span>
-                  </label>
-                </td>
-              </tr>
-            ))}
+                  </td>
+                  <td className="p-2">
+                    <input
+                      className="border w-full p-1"
+                      value={formData.nama_kamar}
+                      onChange={(e) => setFormData({ ...formData, nama_kamar: e.target.value })}
+                    />
+                  </td>
+                  <td className="p-2">
+                    <input
+                      className="border w-full p-1"
+                      value={formData.tipe_kamar}
+                      onChange={(e) => setFormData({ ...formData, tipe_kamar: e.target.value })}
+                    />
+                  </td>
+                  <td className="p-2">
+                    <input
+                      className="border w-full p-1"
+                      type="number"
+                      value={formData.harga_per_malam}
+                      onChange={(e) => setFormData({ ...formData, harga_per_malam: e.target.value })}
+                    />
+                  </td>
+                  <td className="p-2">
+                    <input
+                      className="border w-full p-1"
+                      value={formData.fasilitas}
+                      onChange={(e) => setFormData({ ...formData, fasilitas: e.target.value })}
+                    />
+                  </td>
+                  <td className="p-2">
+                    <textarea
+                      className="border w-full p-1"
+                      rows={2}
+                      value={formData.deskripsi}
+                      onChange={(e) => setFormData({ ...formData, deskripsi: e.target.value })}
+                    />
+                  </td>
+                  <td className="p-2 text-center">
+                    <button
+                      className="bg-green-600 text-white text-xs px-2 py-1 rounded mr-2"
+                      onClick={handleUpdate}
+                    >
+                      Simpan
+                    </button>
+                    <button
+                      className="bg-gray-400 text-white text-xs px-2 py-1 rounded"
+                      onClick={() => setEditingRoom(null)}
+                    >
+                      Batal
+                    </button>
+                  </td>
+                </tr>
+              ) : (
+                <tr key={room.id} className="bg-white border-t">
+                  <td className="p-2">
+                    <img
+                      src={`http://localhost/uploads/${room.foto}`}
+                      className="w-16 h-12 object-cover rounded"
+                      alt="foto"
+                    />
+                  </td>
+                  <td className="p-2">{room.nama_kamar}</td>
+                  <td className="p-2">{room.tipe_kamar}</td>
+                  <td className="p-2">Rp{room.harga_per_malam}</td>
+                  <td className="p-2">{room.fasilitas}</td>
+                  <td className="p-2">{room.deskripsi}</td>
+                  <td className="p-2 text-center">
+                    <button
+                      className="bg-yellow-500 text-white text-xs px-2 py-1 rounded mr-2"
+                      onClick={() => handleEdit(room)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="bg-red-600 text-white text-xs px-2 py-1 rounded"
+                      onClick={() => handleDelete(room.id)}
+                    >
+                      Hapus
+                    </button>
+                  </td>
+                </tr>
+              )
+            )}
           </tbody>
         </table>
       </div>
